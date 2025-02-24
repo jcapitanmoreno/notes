@@ -38,6 +38,12 @@ export class FirebaseService {
     return sendPasswordResetEmail(this.auth, email);
   }
 
+  async signOut() {
+    await this.auth.signOut();
+    localStorage.removeItem('user');
+    window.location.reload();
+  }
+
   async getDocument(path: string) {
     const docSnap = await getDoc(doc(this.firestore,path));
     return docSnap.data();
@@ -45,5 +51,19 @@ export class FirebaseService {
 
   setDocument(path: string, data: any) {
     return setDoc(doc(this.firestore, path), data);
+  }
+
+  async isAuthenticated() {
+    const userExists: boolean = await new Promise((resolve) => {
+      const unsubscribe = this.auth.onAuthStateChanged((user) => {
+        unsubscribe();
+        if (user) {
+          resolve (true)
+        } else {
+          resolve (false)
+        }
+      });
+    });
+    return userExists;
   }
 }

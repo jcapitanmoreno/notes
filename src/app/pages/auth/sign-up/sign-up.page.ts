@@ -11,7 +11,8 @@ import {
   IonContent,
   IonIcon,
   IonHeader,
-  IonToolbar, IonTitle } from '@ionic/angular/standalone';
+  IonToolbar,
+} from '@ionic/angular/standalone';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 import { CustomInputComponent } from 'src/app/shared/components/custom-input/custom-input.component';
 import { addIcons } from 'ionicons';
@@ -33,7 +34,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   templateUrl: './sign-up.page.html',
   styleUrls: ['./sign-up.page.scss'],
   standalone: true,
-  imports: [IonTitle, 
+  imports: [
     IonIcon,
     HeaderComponent,
     IonContent,
@@ -76,7 +77,39 @@ export class SignUpPage implements OnInit {
         .signUp(this.form.value as User)
         .then(async (res) => {
           this.firebaseService.updateUser(this.form.value.name!)
-          console.log(res)
+          let uid = res.user!.uid;
+          this.form.controls.uid.setValue(uid);
+          this.setUserInfo(uid);
+        })
+        .catch((error) => {
+          this.utilsService.presentToast({
+            message: error.message,
+            duration: 2500,
+            color: 'danger',
+            position: 'middle',
+            icon: 'alert-circle-outline',
+          });
+        })
+        .finally(() => {
+          loading.dismiss();
+        });
+    }
+  }
+
+  async setUserInfo(uid: string) {
+    if (this.form.valid) {
+      const loading = await this.utilsService.loading();
+      await loading.present();
+
+      let path = `users/${uid}`;
+      delete this.form.value.password;
+
+      this.firebaseService
+        .setDocument(path, this.form.value)
+        .then((res) => {
+          this.utilsService.saveInLocalStorage('user', this.form.value);
+          this.form.reset();
+          this.utilsService.routerLink('/home');
         })
         .catch((error) => {
           this.utilsService.presentToast({

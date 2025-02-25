@@ -144,19 +144,23 @@ export class AddUpdateMiniatureComponent implements OnInit {
   async UpdateMiniature() {
     const loading = await this.utilsService.loading();
     await loading.present();
-
+  
     const path: string = `users/${this.user.uid}/miniatures/${this.miniature!.id}`;
     if (this.form.value.image != this.miniature!.image) {
       const imageDataUrl = this.form.value.image;
-      const imagePath = await this.firebaseService.getFilePath(this.miniature!.image)
-      const imageUrl = await this.firebaseService.uploadImage(
-        imagePath,
+      const imagePath = this.supabaseService.getFilePath(this.miniature!.image);
+      if (imagePath) {
+        await this.supabaseService.deleteFile(imagePath);
+      }
+      const newImagePath = `${this.user.uid}/${Date.now()}`;
+      const imageUrl = await this.supabaseService.uploadImage(
+        newImagePath,
         imageDataUrl!
       );
       this.form.controls.image.setValue(imageUrl);
     }
     delete this.form.value.id;
-
+  
     this.firebaseService
       .updateDocument(path, this.form.value)
       .then(async (res) => {

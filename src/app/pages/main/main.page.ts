@@ -5,7 +5,7 @@ import { addIcons } from 'ionicons';
 import {
   IonContent,
   IonMenu,
-  IonMenuToggle, IonLabel, IonItem, IonIcon, IonRouterOutlet, IonTitle, IonFooter, IonToolbar } from '@ionic/angular/standalone';
+  IonMenuToggle, IonLabel, IonItem, IonIcon, IonRouterOutlet, IonTitle, IonFooter, IonToolbar, IonAvatar } from '@ionic/angular/standalone';
 import { homeOutline, personOutline, logOutOutline, personCircleOutline } from 'ionicons/icons';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { HeaderComponent } from "../../shared/components/header/header.component";
@@ -18,7 +18,7 @@ import { User } from 'src/app/models/user.model';
   templateUrl: './main.page.html',
   styleUrls: ['./main.page.scss'],
   standalone: true,
-  imports: [IonFooter, IonRouterOutlet, IonIcon, IonItem, IonLabel,
+  imports: [IonAvatar, IonFooter, IonRouterOutlet, IonIcon, IonItem, IonLabel,
     IonContent,
     CommonModule,
     FormsModule,

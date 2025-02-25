@@ -12,7 +12,10 @@ import {
   IonItem,
   IonAvatar,
   IonList,
-  IonChip, IonSkeletonText } from '@ionic/angular/standalone';
+  IonChip,
+  IonSkeletonText,
+  IonRefresher,
+  IonRefresherContent, IonCard, IonInput, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { add, createOutline, trashOutline, bodyOutline } from 'ionicons/icons';
 import { Miniature } from 'src/app/models/miniature.model';
@@ -22,13 +25,17 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateMiniatureComponent } from 'src/app/shared/components/add-update-miniature/add-update-miniature.component';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
+import { QueryOptions } from 'src/app/services/query-options.interface';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonSkeletonText, 
+  imports: [IonButton, IonInput, IonCard, 
+    IonRefresherContent,
+    IonRefresher,
+    IonSkeletonText,
     IonChip,
     IonList,
     IonAvatar,
@@ -62,14 +69,40 @@ export class HomePage implements OnInit {
     const user: User = this.utilsService.getLocalStoredUser()!;
     const path: string = `users/${user.uid}/miniatures`;
 
-    let sub = this.firebaseService.getCollectionData(path).subscribe({
-      next: (res: any) => {
-        sub.unsubscribe();
+    const queryOptions: QueryOptions = {
+      orderBy: { field: 'date', direction: 'desc' },
+    };
 
-        this.miniatures = res;
+    let timer: any;
+    const resetTimer = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        console.log(
+          'No hay más novedades en 5 segundos. Cancelando suscripción.'
+        );
+        sub.unsubscribe();
         this.loading = false;
-      },
-    });
+      }, 5000);
+    };
+
+    const sub = this.firebaseService
+      .getCollectionData(path, queryOptions)
+      .subscribe({
+        next: (res: any) => {
+          this.miniatures = res;
+          this.loading = false;
+
+          resetTimer();
+        },
+        error: (error) => {
+          console.error('Error al obtener los datos:', error);
+          this.loading = false;
+
+          if (timer) clearTimeout(timer);
+        },
+      });
+
+    resetTimer();
   }
 
   async addUpdateMiniature(miniature?: Miniature) {
@@ -85,6 +118,13 @@ export class HomePage implements OnInit {
 
   ionViewWillEnter() {
     this.getMiniatures();
+  }
+
+  doRefresh(event: any) {
+    setTimeout(() => {
+      this.getMiniatures();
+      event.target.complete();
+    }, 2000);
   }
 
   async deleteMiniature(miniature: Miniature) {

@@ -1,45 +1,94 @@
+$primary-color: #1e1e2d;
+$secondary-color: #28293e;
+$accent-color: #4a4f7a;
+$text-color: #ffffff;
+$icon-color: #b0b3c3;
+$border-color: rgba(255, 255, 255, 0.1);
+$highlight-color: #f4a261;
+
+ion-menu {
+  --width: 260px;
+  --min-width: 260px;
+  border-right: 1px solid $border-color;
+  outline: none;
+}
+
 ion-content {
-    --background: var(--ion-color-primary);
-    --color: var(--ion-color-primary-contrast);
-    --padding-top: 28px;
-  }
-  
-  ion-item {
-    font-size: 14px;
-    color: var(--ion-color-light);
-    --background: var(--ion-color-primary);
-  
-    ion-icon {
-      color: var(--ion-color-light);
-    }
-  
-    &.active {
-      color: var(--ion-color-warning);
-  
-      ion-icon {
-        color: var(--ion-color-warning);
-      }
-    }
-  }
-  
-  ion-menu {
-    --width: 254px;
-    --min-width: 254px;
-  
-    outline: none;
-  }
-  
+  --background: $secondary-color;
+  --color: $text-color;
+  --padding-top: 28px;
+  text-align: center;
+
   h4 {
-    margin-top: 5px;
+    margin-top: 10px;
     font-weight: bold;
+    font-size: 1.2rem;
+    color: $text-color;
   }
-  
-  .avatar-icon {
-    font-size: 100px;
-  }
-  
+
   ion-avatar {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     margin: 0 auto;
+    border: 2px solid $accent-color;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .avatar-icon {
+      font-size: 5rem;
+      color: $icon-color;
+    }
   }
+}
+
+ion-item {
+  font-size: 14px;
+  color: $text-color;
+  --background: transparent;
+  transition: background 0.3s ease-in-out;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  ion-icon {
+    color: $icon-color;
+  }
+
+  &.active {
+    color: $highlight-color;
+    font-weight: bold;
+    
+    ion-icon {
+      color: $highlight-color;
+    }
+  }
+}
+
+ion-footer {
+  background: darken($secondary-color, 5%);
+  padding: 10px;
+  border-top: 1px solid $border-color;
+
+  ion-item {
+    --background: transparent;
+    color: $text-color;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    ion-icon {
+      color: $icon-color;
+    }
+  }
+}

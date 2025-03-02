@@ -1,19 +1,80 @@
-.image-icon {
-    font-size: 100px;
-    opacity: 30%;
-}
+// Variables de colores
+$primary-color: #1e1e2d;
+$secondary-color: #28293e;
+$accent-color: #4a4f7a;
+$text-color: #ffffff;
+$icon-color: #b0b3c3;
+$border-color: rgba(255, 255, 255, 0.1);
+$error-color: #e74c3c;
+$button-bg: #3b3f5c;
+$button-bg-hover: #52577a;
 
-ion-avatar {
-    width: 200px;
-    height: 160px;
-    --border-radius: 15px;
-    margin: 0 auto;
-}
+ion-content {
+  --background: $primary-color;
+  color: $text-color;
 
-ion-input {
-    margin-top: 20px;
-}
+  form {
+    background: $secondary-color;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-ion-label {
-    margin-bottom: 5px;
+    ion-avatar {
+      width: 100px;
+      height: 100px;
+      border: 2px solid $accent-color;
+      overflow: hidden;
+      margin-bottom: 1rem;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+
+    .image-icon {
+      font-size: 4rem;
+      color: $icon-color;
+      margin-bottom: 1rem;
+    }
+
+    ion-button {
+      background: $button-bg;
+      color: $text-color;
+      transition: background 0.3s ease;
+      font-weight: bold;
+      border-radius: 20px; 
+      padding: 0.5rem 1rem; 
+
+      &:hover {
+        background: $button-bg-hover;
+      }
+
+      ion-icon {
+        font-size: 1.3rem;
+        margin-left: 5px;
+      }
+
+      &[disabled] {
+        background: lighten($button-bg, 15%);
+        opacity: 0.5;
+      }
+    }
+
+    .validators {
+      color: $error-color;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    app-custom-input {
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+  }
 }

@@ -1,3 +1,41 @@
-.wmm {
-    font-size: 13px;
+$primary-color: #1e1e2d;
+$secondary-color: #28293e;
+$accent-color: #4a4f7a;
+$text-color: #ffffff;
+$icon-color: #b0b3c3;
+$border-color: rgba(255, 255, 255, 0.1);
+
+ion-header {
+  background: $primary-color;
+  
+  ion-toolbar {
+    background: $secondary-color;
+    border-bottom: 1px solid $border-color;
+
+    ion-title {
+      color: $text-color;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .wmm {
+        font-size: 0.9rem;
+        color: $accent-color;
+      }
+    }
+
+    ion-buttons {
+      ion-button {
+        color: $icon-color;
+
+        ion-icon {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
 }

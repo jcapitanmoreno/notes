@@ -1,11 +1,39 @@
 .custom-input {
-    --border-radius: 5px;
-    --border-style: solid;
-    --border-width: 1px;
-    margin: 20px 0;
-
-    ion-label {
-        position: relative;
-        bottom: 2px;
+    --background: transparent;
+    --color: #ffffff;
+    --border-radius: 10px;
+    --inner-padding-end: 12px;
+    --padding-start: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: border-color 0.3s ease-in-out;
+    
+    &:focus-within {
+      border-color: #f4a261; // Color resaltado al enfocar
     }
-}
+  
+    ion-icon {
+      font-size: 1.4rem;
+      color: #f4a261; // Íconos con color de énfasis
+    }
+  
+    ion-input {
+      color: #ffffff;
+      --placeholder-color: rgba(255, 255, 255, 0.5);
+      font-size: 1rem;
+    }
+  
+    ion-button {
+      --color: #ffffff;
+      --padding-end: 0;
+      transition: transform 0.2s ease-in-out;
+  
+      &:hover {
+        transform: scale(1.1);
+      }
+  
+      ion-icon {
+        font-size: 1.3rem;
+        color: #f4a261; // Color del icono de visibilidad de contraseña
+      }
+    }
+  }

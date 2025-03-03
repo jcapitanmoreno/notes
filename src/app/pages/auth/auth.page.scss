@@ -1,11 +1,67 @@
 .auth-form {
+    background: rgba(255, 255, 255, 0.05); // Efecto translúcido
+    padding: 30px;
+    border-radius: 15px;
     width: 100%;
+    max-width: 400px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
     text-align: center;
-    padding: 20px;
-}
-
-@media (min-width: 769px) {
-    .auth-form {
-        width: 500px;
+  
+    app-logo {
+      margin-bottom: 20px;
     }
-}
+  
+    .validators {
+      font-size: 0.9rem;
+      color: #ff6b6b;
+      margin-top: 5px;
+    }
+  
+    p {
+      color: #b0b0b0;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: color 0.3s ease-in-out;
+  
+      &:hover {
+        color: #ffffff;
+      }
+    }
+  
+    ion-button {
+      font-weight: bold;
+      border-radius: 8px;
+      transition: transform 0.2s ease-in-out;
+  
+      &.submit {
+        --background: linear-gradient(45deg, #f4a261, #e76f51);
+        --color: #ffffff;
+  
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+  
+      &.ion-margin-top {
+        --border-color: #f4a261;
+        --color: #f4a261;
+  
+        &:hover {
+          background: rgba(244, 162, 97, 0.2);
+        }
+      }
+  
+      ion-icon {
+        font-size: 1.2rem;
+      }
+    }
+  }
+  
+  .d-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  

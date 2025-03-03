@@ -15,6 +15,8 @@ import {
   deleteObject,
 } from '@angular/fire/storage';
 import { User } from '../models/user.model';
+import { Miniature } from '../models/miniature.model';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
   Firestore,
   setDoc,
@@ -29,8 +31,9 @@ import {
   QueryConstraint,
   orderBy,
   limit,
+  getDocs,
 } from '@angular/fire/firestore';
-import  {QueryOptions} from "./query-options.interface";
+import { QueryOptions } from './query-options.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +42,7 @@ export class FirebaseService {
   auth = inject(Auth);
   firestore = inject(Firestore);
   storage = inject(Storage);
+
 
   signIn(user: User): Promise<UserCredential> {
     return signInWithEmailAndPassword(this.auth, user.email, user.password);
@@ -125,6 +129,13 @@ export class FirebaseService {
     return collectionData(query(ref, ...collectionQuery), { idField: 'id' });
   }
 
+  async getCollectionDataOnce(path: string, options?: QueryOptions) {
+    const ref = collection(this.firestore, path);
+    const collectionQuery = this.buildQueryConstraints(options);
+    const snapshot = await getDocs(query(ref, ...collectionQuery));
+    return snapshot.docs.map((doc) => doc.data());
+  }
+
   async uploadImage(path: string, imageUrl: string) {
     return uploadString(ref(this.storage, path), imageUrl, 'data_url').then(
       () => {
@@ -144,4 +155,12 @@ export class FirebaseService {
   async deleteFile(path: string) {
     return deleteObject(ref(this.storage, path));
   }
+
+  mapToMiniature(doc: any): Miniature {
+    return {
+      id: doc.id,
+      ...doc.data()
+    } as Miniature;
+  }
+  
 }

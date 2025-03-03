@@ -62,6 +62,7 @@ export class AddUpdateMiniatureComponent implements OnInit {
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
     description: new FormControl('', [Validators.required, Validators.min(1)]),
     date: new FormControl('', [Validators.required, Validators.min(0)]),
+    date2: new FormControl('', [Validators.required, Validators.min(0)]),
   });
 
   constructor() {
@@ -104,7 +105,7 @@ export class AddUpdateMiniatureComponent implements OnInit {
   async createMiniature() {
     const loading = await this.utilsService.loading();
     await loading.present();
-
+  
     const path: string = `users/${this.user.uid}/miniatures`;
     const imageDataUrl = this.form.value.image;
     const imagePath = `${this.user.uid}/${Date.now()}`;
@@ -114,7 +115,7 @@ export class AddUpdateMiniatureComponent implements OnInit {
     );
     this.form.controls.image.setValue(imageUrl);
     delete this.form.value.id;
-
+  
     this.firebaseService
       .addDocument(path, this.form.value)
       .then(async (res) => {

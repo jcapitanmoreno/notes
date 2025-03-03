@@ -58,7 +58,7 @@
     <app-custom-input
       [control]="form.controls.date"
       type="date"
-      label="Fecha de la tarea"
+      label="Fecha de inicio la tarea"
     ></app-custom-input>
 
     <div
@@ -66,7 +66,22 @@
       *ngIf="form.controls.date.errors && form.controls.date.touched"
     >
       <div *ngIf="form.controls.date.errors?.['required']">
-        Debe especificar una fecha
+        Debe especificar una fecha de inicio
+      </div>
+    </div>
+
+    
+    <app-custom-input
+    [control]="form.controls.date2"
+    type="date"
+    label="Fecha de finalizacion de la tarea"
+  ></app-custom-input>
+    <div
+      class="validators"
+      *ngIf="form.controls.date.errors && form.controls.date.touched"
+    >
+      <div *ngIf="form.controls.date.errors?.['required']">
+        Debe especificar una fecha de finalizacion
       </div>
     </div>
 

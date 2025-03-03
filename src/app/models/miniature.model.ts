@@ -4,6 +4,7 @@ export interface Miniature {
     image: string;
     description: string;
     date: string;
+    date2: string;
   }
 
   //id: string;

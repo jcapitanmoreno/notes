@@ -15,9 +15,9 @@ import {
   IonChip,
   IonSkeletonText,
   IonRefresher,
-  IonRefresherContent, IonCard, IonInput, IonButton } from '@ionic/angular/standalone';
+  IonRefresherContent, IonCard, IonInput, IonButton, IonCardContent, IonCheckbox, IonCardHeader, IonCol, IonRow, IonCardTitle } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { add, createOutline, trashOutline, bodyOutline } from 'ionicons/icons';
+import { add, createOutline, trashOutline, bodyOutline, checkbox, checkboxOutline } from 'ionicons/icons';
 import { Miniature } from 'src/app/models/miniature.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -32,7 +32,7 @@ import { QueryOptions } from 'src/app/services/query-options.interface';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonButton, IonInput, IonCard, 
+  imports: [IonCardTitle, IonRow, IonCol, IonCardHeader, IonCheckbox, IonCardContent, IonButton, IonInput, IonCard, 
     IonRefresherContent,
     IonRefresher,
     IonSkeletonText,
@@ -59,7 +59,7 @@ export class HomePage implements OnInit {
   miniatures: Miniature[] = [];
   loading: boolean = false;
   constructor() {
-    addIcons({ createOutline, trashOutline, bodyOutline, add });
+    addIcons({createOutline,trashOutline,checkboxOutline,add,checkbox});
   }
 
   ngOnInit() {}

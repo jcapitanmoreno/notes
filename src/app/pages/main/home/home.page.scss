@@ -1,133 +1,124 @@
-$primary-color: #1e1e2d;
-$secondary-color: #28293e;
-$accent-color: #4a4f7a;
-$text-color: #ffffff;
-$icon-color: #b0b3c3;
-$border-color: rgba(255, 255, 255, 0.1);
-$highlight-color: #f4a261;
-$danger-color: #e74c3c;
-
-@media (min-width: 769px) {
-  .add-update-modal {
-    --height: 680px;
-  }
+/* Estilo general */
+:root {
+  --background-color: #121212;
+  --card-background: #1e1e1e;
+  --text-color: #e0e0e0;
+  --primary-accent: #00adb5;
+  --danger-color: #ff3b30;
+  --border-radius: 12px;
+  --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 ion-content {
-  --background: $primary-color;
-  color: $text-color;
+  --background: var(--background-color);
+  color: var(--text-color);
 }
 
-ion-card {
-  background: $secondary-color;
-  color: $text-color;
+/* Contenedor de las cartas */
+.miniature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  justify-content: center;
+}
+
+/* Estilo de las cartas */
+.miniature-card {
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
   text-align: center;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-
-  h5 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: $highlight-color;
-    margin-bottom: 0.3rem;
-  }
-
-  p {
-    font-size: 1rem;
-    opacity: 0.8;
-  }
 }
 
-.miniature-item {
-  --padding-top: 20px;
-  background: $secondary-color;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
-  &:hover {
-    transform: scale(1.02);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
-  }
-
-  ion-avatar {
-    width: 70px;
-    height: 80px;
-    --border-radius: 15px;
-    border: 2px solid $accent-color;
-  }
-
-  .name {
-    font-weight: 600;
-    padding-bottom: 5px;
-    font-size: 1.1rem;
-    color: $highlight-color;
-  }
-
-  .data {
-    font-size: 13px;
-    color: $text-color;
-
-    strong {
-      font-weight: 500;
-      color: lighten($text-color, 10%);
-    }
-  }
-
-  .option-btn {
-    font-size: 27px;
-    color: $icon-color;
-    transition: color 0.3s ease-in-out;
-
-    &:hover {
-      color: $highlight-color;
-    }
-  }
-
-  ion-item-options {
-    ion-item-option {
-      &.danger {
-        background: $danger-color;
-        color: $text-color;
-
-        &:hover {
-          background: darken($danger-color, 10%);
-        }
-      }
-    }
-  }
+.miniature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 173, 181, 0.3);
 }
 
+/* Imagen dentro de las cartas */
+.miniature-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+/* Cabecera de las cartas */
+ion-card-header {
+  background: #ffffff0d;
+  padding: 10px;
+}
+
+ion-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--primary-accent);
+}
+
+/* Contenido de la carta */
+ion-card-content {
+  padding: 12px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+ion-checkbox {
+  --color: var(--primary-accent);
+}
+
+/* Botones de acción */
+.miniature-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+ion-button {
+  --background: transparent;
+  --color: var(--primary-accent);
+  --border-color: var(--primary-accent);
+  border: 1px solid var(--primary-accent);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+ion-button:hover {
+  background: var(--primary-accent);
+  color: #121212;
+}
+
+ion-button[color="danger"] {
+  --color: var(--danger-color);
+  --border-color: var(--danger-color);
+}
+
+ion-button[color="danger"]:hover {
+  background: var(--danger-color);
+  color: white;
+}
+
+/* Estado vacío */
 .empty {
   text-align: center;
-  padding: 60px;
-  opacity: 50%;
-  color: $icon-color;
-
-  ion-icon {
-    font-size: 100px;
-    margin-bottom: 10px;
-  }
-
-  h3 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: $text-color;
-  }
+  color: var(--primary-accent);
+  margin-top: 40px;
 }
 
+.empty ion-icon {
+  font-size: 3rem;
+  color: var(--primary-accent);
+}
+
+/* Botón flotante */
 ion-fab-button {
-  --background: $highlight-color;
-  --color: $primary-color;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease-in-out;
+  --background: var(--primary-accent);
+  --color: #fff;
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
 
-  &:hover {
-    transform: scale(1.1);
-  }
-
-  ion-icon {
-    font-size: 1.5rem;
-  }
+ion-fab-button:hover {
+  background: #008c95;
 }

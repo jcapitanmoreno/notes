@@ -31,6 +31,7 @@ ion-content {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   overflow: hidden;
   text-align: center;
+  position: relative;
 }
 
 .miniature-card:hover {
@@ -75,6 +76,14 @@ ion-checkbox {
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.miniature-actions.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 ion-button {

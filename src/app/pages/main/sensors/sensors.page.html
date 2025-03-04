@@ -15,12 +15,25 @@
       <ion-card-title>Acelerómetro</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>X: {{ this.accelerometerData.x | number:'1.1-1' }}</p>
-      <p>Y: {{ this.accelerometerData.y | number:'1.1-1' }}</p>
-      <p>Z: {{ this.accelerometerData.z | number:'1.1-1' }}</p>
-      <p>Alpha: {{ this.orientationData.alpha | number:'1.1-1' }}</p>
-      <p>Beta: {{ this.orientationData.beta | number:'1.1-1' }}</p>
-      <p>Gamma: {{ this.orientationData.gamma | number:'1.1-1' }}</p>
+      <p>X: {{ accelerometerData.x | number:'1.1-1' }}</p>
+      <p>Y: {{ accelerometerData.y | number:'1.1-1' }}</p>
+      <p>Z: {{ accelerometerData.z | number:'1.1-1' }}</p>
+      <p>Alpha: {{ orientationData.alpha | number:'1.1-1' }}</p>
+      <p>Beta: {{ orientationData.beta | number:'1.1-1' }}</p>
+      <p>Gamma: {{ orientationData.gamma | number:'1.1-1' }}</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Información del Dispositivo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Modelo: {{ deviceInfo.model }}</p>
+      <p>Plataforma: {{ deviceInfo.platform }}</p>
+      <p>Versión del SO: {{ deviceInfo.osVersion }}</p>
+      <p>Fabricante: {{ deviceInfo.manufacturer }}</p>
+      <p>Memoria: {{ deviceInfo.memUsed }} / {{ deviceInfo.memTotal }}</p>
+      <ion-button expand="full" (click)="shareDeviceInfo()">Compartir Información</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

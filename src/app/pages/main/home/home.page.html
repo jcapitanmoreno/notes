@@ -13,7 +13,7 @@
   </ion-card>
 
   <div class="miniature-grid" *ngIf="!loading">
-    <ion-card *ngFor="let miniature of miniatures" class="miniature-card">
+    <ion-card *ngFor="let miniature of miniatures" class="miniature-card" (click)="onMiniatureClick(miniature.id)">
       <img [src]="miniature.image" class="miniature-image"/>
       <ion-card-header>
         <ion-card-title>{{ miniature.name }}</ion-card-title>
@@ -24,7 +24,7 @@
         <p><strong>Fecha de fin:</strong> {{ miniature.date2 }}</p>
         <ion-checkbox justify="start">Tarea en proceso</ion-checkbox>
       </ion-card-content>
-      <ion-row class="miniature-actions">
+      <ion-row class="miniature-actions" [class.show]="selectedMiniatureId === miniature.id">
         <ion-col size="6">
           <ion-button expand="block" fill="outline" (click)="addUpdateMiniature(miniature)">
             <ion-icon name="create-outline"></ion-icon>

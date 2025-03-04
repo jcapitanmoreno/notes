@@ -1,4 +1,5 @@
 export interface Miniature {
+    inProgress: any;
     id: string;
     name: string;
     image: string;

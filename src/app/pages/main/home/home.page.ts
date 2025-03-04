@@ -58,6 +58,8 @@ export class HomePage implements OnInit {
   supabaseService = inject(SupabaseService);
   miniatures: Miniature[] = [];
   loading: boolean = false;
+  selectedMiniatureId: string | null = null;
+
   constructor() {
     addIcons({createOutline,trashOutline,checkboxOutline,add,checkbox});
   }
@@ -180,5 +182,9 @@ export class HomePage implements OnInit {
         },
       ],
     });
+  }
+
+  onMiniatureClick(miniatureId: string) {
+    this.selectedMiniatureId = this.selectedMiniatureId === miniatureId ? null : miniatureId;
   }
 }

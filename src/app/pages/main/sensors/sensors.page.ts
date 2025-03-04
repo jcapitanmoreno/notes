@@ -7,6 +7,7 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { inject } from '@angular/core';
@@ -25,6 +26,7 @@ import { Subscription } from 'rxjs';
     IonCardHeader,
     IonCard,
     IonContent,
+    IonButton,
     CommonModule,
     FormsModule,
     HeaderComponent,
@@ -36,6 +38,7 @@ export class SensorsPage implements OnInit, OnDestroy {
   private accelerometerDataSubscription: Subscription | null = null;
   private orientationDataSubscription: Subscription | null = null;
   private coordinatesSubscription: Subscription | null = null;
+  private deviceInfoSubscription: Subscription | null = null;
 
   accelerometerData: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
   orientationData: { alpha: number; beta: number; gamma: number } = {
@@ -44,12 +47,15 @@ export class SensorsPage implements OnInit, OnDestroy {
     gamma: 0,
   };
   position: Position | null = null;
+  deviceInfo: any = {};
 
   constructor() {}
 
   ngOnInit() {
     this.sensorService.startWatchingGPS();
     this.sensorService.startListeningToMotion();
+    this.sensorService.loadDeviceInfo();
+
     // Suscribirse a los datos del acelerómetro
     this.accelerometerDataSubscription = this.sensorService
       .getAccelerometerData()
@@ -70,6 +76,13 @@ export class SensorsPage implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.position = data;
       });
+
+    // Suscribirse a la información del dispositivo
+    this.deviceInfoSubscription = this.sensorService
+      .getDeviceInfo()
+      .subscribe((info) => {
+        this.deviceInfo = info;
+      });
   }
 
   ngOnDestroy() {
@@ -83,9 +96,20 @@ export class SensorsPage implements OnInit, OnDestroy {
     if (this.coordinatesSubscription) {
       this.coordinatesSubscription.unsubscribe();
     }
+    if (this.deviceInfoSubscription) {
+      this.deviceInfoSubscription.unsubscribe();
+    }
 
     // También podemos parar de escuchar eventos de motion si lo hemos iniciado
     this.sensorService.stopListeningToMotion();
     this.sensorService.stopWatchingGPS();
+  }
+
+  async shareDeviceInfo() {
+    const title = 'Información del Dispositivo';
+    const text = `Modelo: ${this.deviceInfo.model}\nPlataforma: ${this.deviceInfo.platform}\nVersión del SO: ${this.deviceInfo.osVersion}\nFabricante: ${this.deviceInfo.manufacturer}\nMemoria: ${this.deviceInfo.memUsed} / ${this.deviceInfo.memTotal}`;
+    const url = ''; // Puedes añadir una URL si es necesario
+
+    await this.sensorService.shareContent(title, text, url);
   }
 }

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Geolocation, Position } from '@capacitor/geolocation';
 import { Motion } from '@capacitor/motion';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { PluginListenerHandle } from '@capacitor/core';
+import { Device } from '@capacitor/device';
+import { Share } from '@capacitor/share';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +29,7 @@ export class SensorService {
     gamma: number;
   }>({ alpha: 0, beta: 0, gamma: 0 });
   private coordinatesSubject = new BehaviorSubject<Position | null>(null);
+  private deviceInfoSubject = new BehaviorSubject<any>(null);
 
   // Métodos para acceder a los datos como observables
   getAccelerometerData() {
@@ -39,6 +42,10 @@ export class SensorService {
 
   getCurrentCoordinates() {
     return this.coordinatesSubject.asObservable();
+  }
+
+  getDeviceInfo(): Observable<any> {
+    return this.deviceInfoSubject.asObservable();
   }
 
   // Iniciar la escucha de los datos de movimiento
@@ -99,5 +106,19 @@ export class SensorService {
       this.coordinatesSubject.next(null); // Limpia la data
       this.gpsWatcher = null;
     }
+  }
+
+  async loadDeviceInfo() {
+    const info = await Device.getInfo();
+    this.deviceInfoSubject.next(info);
+  }
+
+  async shareContent(title: string, text: string, url: string) {
+    await Share.share({
+      title: title,
+      text: text,
+      url: url,
+      dialogTitle: 'Compartir con',
+    });
   }
 }

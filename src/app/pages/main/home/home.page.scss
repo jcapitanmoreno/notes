@@ -131,3 +131,9 @@ ion-fab-button {
 ion-fab-button:hover {
   background: #008c95;
 }
+
+.center-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

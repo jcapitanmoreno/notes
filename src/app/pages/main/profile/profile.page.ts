@@ -33,18 +33,22 @@ export class ProfilePage implements OnInit {
   ngOnInit() {}
 
   async takeImage() {
-    const dataUrl = (await this.utilsService.takePicture('imagen de perfil')).dataUrl;
+    const dataUrl = (await this.utilsService.takePicture('imagen de perfil'))
+      .dataUrl;
 
     const loading = await this.utilsService.loading();
     await loading.present();
 
     const path: string = `users/${this.user.uid}`;
     if (this.user.image) {
-      const oldImagePath = await this.supabaseService.getFilePath(this.user.image);
+      const oldImagePath = this.supabaseService.getFilePath(this.user.image)
       await this.supabaseService.deleteFile(oldImagePath!);
     }
-    let imagePath = `${this.user.uid}/profile${this.user.uid}`;
-    const imageUrl = await this.supabaseService.uploadImage(imagePath, dataUrl!);
+    let imagePath = `${this.user.uid}/profile${Date.now()}`;
+    const imageUrl = await this.supabaseService.uploadImage(
+      imagePath,
+      dataUrl!
+    );
     this.user.image = imageUrl;
     this.firebaseService
       .updateDocument(path, { image: this.user.image })

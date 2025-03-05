@@ -3,7 +3,7 @@ import { Geolocation, Position } from '@capacitor/geolocation';
 import { Motion } from '@capacitor/motion';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PluginListenerHandle } from '@capacitor/core';
-import { Device } from '@capacitor/device';
+import { Device, DeviceInfo } from '@capacitor/device';
 import { Share } from '@capacitor/share';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class SensorService {
     gamma: number;
   }>({ alpha: 0, beta: 0, gamma: 0 });
   private coordinatesSubject = new BehaviorSubject<Position | null>(null);
-  private deviceInfoSubject = new BehaviorSubject<any>(null);
+  private deviceInfoSubject = new BehaviorSubject<DeviceInfo | null>(null);
 
   // Métodos para acceder a los datos como observables
   getAccelerometerData() {

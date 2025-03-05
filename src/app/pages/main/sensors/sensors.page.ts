@@ -14,6 +14,7 @@ import { inject } from '@angular/core';
 import { SensorService } from 'src/app/services/sensor.service';
 import { Position } from '@capacitor/geolocation';
 import { Subscription } from 'rxjs';
+import { DeviceInfo } from '@capacitor/device';
 
 @Component({
   selector: 'app-sensors',
@@ -47,7 +48,7 @@ export class SensorsPage implements OnInit, OnDestroy {
     gamma: 0,
   };
   position: Position | null = null;
-  deviceInfo: any = {};
+  deviceInfo: DeviceInfo | null = null;
 
   constructor() {}
 
@@ -107,7 +108,8 @@ export class SensorsPage implements OnInit, OnDestroy {
 
   async shareDeviceInfo() {
     const title = 'Información del Dispositivo';
-    const text = `Modelo: ${this.deviceInfo.model}\nPlataforma: ${this.deviceInfo.platform}\nVersión del SO: ${this.deviceInfo.osVersion}\nFabricante: ${this.deviceInfo.manufacturer}\nMemoria: ${this.deviceInfo.memUsed} / ${this.deviceInfo.memTotal}`;
+
+    const text = `Modelo: ${this.deviceInfo?.model}\nPlataforma: ${this.deviceInfo?.platform}\nVersión del SO: ${this.deviceInfo?.osVersion}\nFabricante: ${this.deviceInfo?.manufacturer}\nMemoria: ${this.deviceInfo?.memUsed}}`;
     const url = ''; // Puedes añadir una URL si es necesario
 
     await this.sensorService.shareContent(title, text, url);

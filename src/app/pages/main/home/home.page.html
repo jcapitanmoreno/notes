@@ -22,7 +22,7 @@
         <p><strong>Descripción:</strong> {{ miniature.description }}</p>
         <p><strong>Fecha de inicio:</strong> {{ miniature.date }}</p>
         <p><strong>Fecha de fin:</strong> {{ miniature.date2 }}</p>
-        <ion-checkbox justify="start">Tarea en proceso</ion-checkbox>
+        <p><strong><ion-checkbox justify="start">Tarea en proceso</ion-checkbox></strong></p>
       </ion-card-content>
       <ion-row class="miniature-actions" [class.show]="selectedMiniatureId === miniature.id">
         <ion-col size="6">
